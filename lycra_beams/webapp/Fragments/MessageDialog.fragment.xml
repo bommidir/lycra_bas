@@ -1,0 +1,40 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<Dialog title="Business Request Purpose" resizable="true" draggable="true">
+		<content>
+		<Table id="myDialog" noDataText="No Messages Found" items="{BarcodeMsgData>/}">
+		<ColumnListItem vAlign="Middle">
+			<cells>
+				<Text text="{BarcodeMsgData>Vbeln}"/>
+			</cells>
+			<cells>
+				<Text text="{BarcodeMsgData>Message}"/>
+			</cells>
+		</ColumnListItem>
+		<columns>
+			<Column width="6rem">
+				<header>
+					<Text text="SO / STO Number"/>
+				</header>
+			</Column>
+			<Column width="15rem">
+				<header>
+					<Text text="Messages"/>
+				</header>
+			</Column>
+		</columns>
+	</Table>
+	</content>
+		<footer>
+			<Toolbar>
+				<content>
+				<Button type="Accept" text="OK" width="8rem" press=".dialogOK" />
+				<!-- <Button type="Reject" text="Cancel" width="8rem" press=".dialogCancel" /> -->
+				</content>
+			</Toolbar>
+		</footer>
+	</Dialog>
+</core:FragmentDefinition>
+
+
+
+

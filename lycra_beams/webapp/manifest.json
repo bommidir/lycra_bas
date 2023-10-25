@@ -1,0 +1,161 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "com.lycrabeams",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.9.2",
+            "toolsId": "1dcd7c4f-703b-407d-9887-8509c34396d8"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "WM_X509/sap/opu/odata/sap/ZLG001_BEAMS_TRACK_TRACE_SRV/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"                    
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "com-lycrabeams-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "lycra_beams_racks",
+                    "action": "display",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",                    
+                    "icon": "sap-icon://qr-code"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.112.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.f": {},
+                "sap.suite.ui.generic.template": {},
+                "sap.ui.comp": {},
+                "sap.ui.generic.app": {},
+                "sap.ui.table": {},
+                "sap.ushell": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "com.lycrabeams.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "useBatch": false
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "viewType": "XML",
+                "async": true,
+                "viewPath": "com.lycrabeams.view",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "clearControlAggregation": false
+            },
+            "routes": [
+                {
+                    "name": "RouteApp",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetView1"
+                    ]
+                },
+                {
+                    "name": "WithSO",
+                    "pattern": "pattern1",
+                    "target": [
+                      "WithSO"
+                    ]
+                  },
+                  {
+                    "name": "WithoutSO",
+                    "pattern": "pattern2",
+                    "target": [
+                      "WithoutSO"
+                    ]
+                  }
+            ],
+            "targets": {
+                "TargetView1": {
+                    "viewType": "XML",                    
+                    "viewName": "Tiles"
+                },
+                "WithSO": {
+                    "viewType": "XML",
+                    "viewName": "WithSO"
+                  },
+                  "WithoutSO": {
+                    "viewType": "XML",
+                    "viewName": "WithoutSO"
+                  }
+            }
+        },
+        "rootView": {
+            "viewName": "com.lycrabeams.view.App",
+            "type": "XML",
+            "async": true,
+            "id": "App"
+        }
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "lycra_beams_racks"
+    }
+}

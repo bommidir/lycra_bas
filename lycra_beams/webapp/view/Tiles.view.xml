@@ -1,0 +1,21 @@
+<mvc:View controllerName="com.lycrabeams.controller.Tiles"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page">
+        <content>
+        <FlexBox height="100px" alignItems="Start" justifyContent="Center" class="sapUiLargeMarginTop">
+    <GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="With Sales Order" subheader="Sales Orders" press="onPressTile">
+		<TileContent footer="Beams and Racks">
+        <ImageContent src="sap-icon://bar-code"/>
+		</TileContent>
+	</GenericTile>
+
+	<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" header="Without Sales Order" subheader="Sold To Party" press="onPressTile">
+		<TileContent footer="Beams and Racks">
+        <ImageContent src="sap-icon://qr-code"/>
+		</TileContent>
+	</GenericTile>
+	</FlexBox>
+        </content>
+    </Page>
+</mvc:View>

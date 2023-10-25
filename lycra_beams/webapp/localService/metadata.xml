@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="ZLG001_BEAMS_TRACK_TRACE_SRV" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="SoValidate" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Vbeln"/>
+                </Key>
+                <Property Name="Vbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Kunnr" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Cifcount" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <NavigationProperty Name="NavBarcodeScan" Relationship="ZLG001_BEAMS_TRACK_TRACE_SRV.SovalidatetoBarcodeScan" FromRole="FromRole_SovalidatetoBarcodeScan" ToRole="ToRole_SovalidatetoBarcodeScan"/>
+                <NavigationProperty Name="NavReturnMsg" Relationship="ZLG001_BEAMS_TRACK_TRACE_SRV.SovalidatetoReturnMsg" FromRole="FromRole_SovalidatetoReturnMsg" ToRole="ToRole_SovalidatetoReturnMsg"/>
+            </EntityType>
+            <EntityType Name="BarcodeScan" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Vbeln"/>
+                    <PropertyRef Name="Sequency"/>
+                </Key>
+                <Property Name="Vbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Sequency" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Barcode" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="ReturnMessage" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Vbeln"/>
+                    <PropertyRef Name="Number"/>
+                </Key>
+                <Property Name="Vbeln" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Number" Type="Edm.String" Nullable="false" MaxLength="3" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Message" Type="Edm.String" Nullable="false" MaxLength="220" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <EntityType Name="CheckBarcode" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Barcode"/>
+                </Key>
+                <Property Name="Barcode" Type="Edm.String" Nullable="false" MaxLength="10" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                <Property Name="Valid" Type="Edm.String" Nullable="false" MaxLength="7" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+            </EntityType>
+            <Association Name="SovalidatetoReturnMsg" sap:content-version="1">
+                <End Type="ZLG001_BEAMS_TRACK_TRACE_SRV.SoValidate" Multiplicity="0..1" Role="FromRole_SovalidatetoReturnMsg"/>
+                <End Type="ZLG001_BEAMS_TRACK_TRACE_SRV.ReturnMessage" Multiplicity="*" Role="ToRole_SovalidatetoReturnMsg"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SovalidatetoReturnMsg">
+                        <PropertyRef Name="Vbeln"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SovalidatetoReturnMsg">
+                        <PropertyRef Name="Vbeln"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="SovalidatetoBarcodeScan" sap:content-version="1">
+                <End Type="ZLG001_BEAMS_TRACK_TRACE_SRV.SoValidate" Multiplicity="0..1" Role="FromRole_SovalidatetoBarcodeScan"/>
+                <End Type="ZLG001_BEAMS_TRACK_TRACE_SRV.BarcodeScan" Multiplicity="*" Role="ToRole_SovalidatetoBarcodeScan"/>
+                <ReferentialConstraint>
+                    <Principal Role="FromRole_SovalidatetoBarcodeScan">
+                        <PropertyRef Name="Vbeln"/>
+                    </Principal>
+                    <Dependent Role="ToRole_SovalidatetoBarcodeScan">
+                        <PropertyRef Name="Vbeln"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <EntityContainer Name="ZLG001_BEAMS_TRACK_TRACE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="SoValidateSet" EntityType="ZLG001_BEAMS_TRACK_TRACE_SRV.SoValidate" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="BarcodeScanSet" EntityType="ZLG001_BEAMS_TRACK_TRACE_SRV.BarcodeScan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="ReturnMessageSet" EntityType="ZLG001_BEAMS_TRACK_TRACE_SRV.ReturnMessage" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <EntitySet Name="CheckBarcodeSet" EntityType="ZLG001_BEAMS_TRACK_TRACE_SRV.CheckBarcode" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                <AssociationSet Name="SovalidatetoBarcodeScanSet" Association="ZLG001_BEAMS_TRACK_TRACE_SRV.SovalidatetoBarcodeScan" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SoValidateSet" Role="FromRole_SovalidatetoBarcodeScan"/>
+                    <End EntitySet="BarcodeScanSet" Role="ToRole_SovalidatetoBarcodeScan"/>
+                </AssociationSet>
+                <AssociationSet Name="SovalidatetoReturnMsgSet" Association="ZLG001_BEAMS_TRACK_TRACE_SRV.SovalidatetoReturnMsg" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="SoValidateSet" Role="FromRole_SovalidatetoReturnMsg"/>
+                    <End EntitySet="ReturnMessageSet" Role="ToRole_SovalidatetoReturnMsg"/>
+                </AssociationSet>
+            </EntityContainer>
+            <atom:link rel="self" href="https://aatawserpq020.aandat.net:8001/sap/opu/odata/sap/ZLG001_BEAMS_TRACK_TRACE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://aatawserpq020.aandat.net:8001/sap/opu/odata/sap/ZLG001_BEAMS_TRACK_TRACE_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

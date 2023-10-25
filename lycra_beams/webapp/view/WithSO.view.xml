@@ -1,0 +1,95 @@
+<mvc:View controllerName="com.lycrabeams.controller.WithSO" xmlns="sap.m" 
+xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" 
+xmlns:core="sap.ui.core" height="100%">	
+    <Page title="{i18n>BACK}" showNavButton="true" navButtonPress="onNavBtnWithSO" >
+        <content>
+    <!-- <Panel headerText="Sales Details" expandable="true" expanded="false" visible="true"> -->
+            <VBox class="sapUiSmallMargin">
+		    <f:Form id="FormToolbar" editable="true" ariaLabelledBy="Title1">			
+			<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="4" labelSpanL="3"	labelSpanM="4"	labelSpanS="12"
+					adjustLabelSpan="false"	emptySpanXL="0"	emptySpanL="4" emptySpanM="0" emptySpanS="0"
+					columnsXL="2" columnsL="1" columnsM="1"
+					singleContainerFullSize="false"/>
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer ariaLabelledBy="Title2">
+					<f:formElements>
+						<f:FormElement label="{i18n>SONUM_STO}">
+							<f:fields>
+                                <Input id="idIpSONum" value="{withSOModel>/SalesOrdNum}" placeholder="{i18n>SO_NUM_PLACEH}" 
+                                change=".onChangeSOInput($event, 'idIpSONum')" maxLength="10"/>
+                    	</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>CUST_VEN}">
+							<f:fields>
+								<Input id="idIpCustNum" value="{withSOModel>/SOCustNum}        {withSOModel>/CustName}" editable="false" />
+								</f:fields>
+						</f:FormElement>
+
+                        <f:FormElement label="{i18n>SCANNED_BARCODE_COUNT}">
+                        <f:fields>
+                        <Input value="{withSOModel>/BarcodeCount}" editable="false"></Input>
+                        </f:fields>
+                        </f:FormElement>
+
+						<f:FormElement label="{i18n>BARCODE_NUM}">
+							<f:fields>
+                            <Input id="idIpBarcodeNum" value="{withSOModel>/BarcodeNum}" submit="onValidateBarcode" maxLength="20" 
+                                 showClearIcon="true"/>
+							<Button icon="sap-icon://camera" press="onBarcodenScan">
+								<layoutData>
+									<l:GridData span="XL2 L1 M3 S4" />
+								</layoutData>
+							</Button></f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer></f:formContainers>
+		    </f:Form>
+
+            <Panel headerText="{i18n>CUSTOMER_PANEL}" expandable="true" expanded="false">
+            <Table id="idTab" items="{withSOModel>/BarcodeTable}" 
+				   class="sapUiTinyMargin sapUiNoMarginTop" width="auto">
+                    <!-- <headerToolbar>
+                        <Toolbar>
+                            <Title text="Barcode Scanned Numbers List" />
+                        </Toolbar>
+                    </headerToolbar> -->
+                    <columns>
+                        <Column>
+                            <Text text="{i18n>BARCODE_NUM_TABL}"/>
+                        </Column>
+                    </columns>
+                    <columns>
+                        <Column>
+                            <Text text="{i18n>DELETE_BARCODE}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{withSOModel>Barcode}" />
+                            </cells>
+                            <cells>
+                                <Button id="idBtnDelTblRow" type="Reject" icon="sap-icon://delete" press="onDelTblRow"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+	        </VBox>
+            <!-- </Panel> -->
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <Button text="{i18n>CANCEL}" type="Reject" icon="sap-icon://cancel" press="onCancel" visible="false"/>
+                    <Button text="{i18n>RESET}" type="Reject" icon="sap-icon://reset" press="onReset" visible="true"/>
+                	<Button text="{i18n>SUBMIT}" type="Emphasized" icon="sap-icon://save" press="onSubmit" 
+					enabled="{= ${withSOModel>/SubmitEnabled} }"/>
+                </contentRight>
+            </Bar>
+        </footer>
+    </Page>
+</mvc:View>

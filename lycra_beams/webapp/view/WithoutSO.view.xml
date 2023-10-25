@@ -1,0 +1,91 @@
+<mvc:View controllerName="com.lycrabeams.controller.WithoutSO" xmlns="sap.m" 
+xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" 
+xmlns:core="sap.ui.core" height="100%">	
+    <Page title="{i18n>BACK}" showNavButton="true" navButtonPress="onNavButtonPress" >
+        <content>
+			<VBox class="sapUiSmallMargin">
+		    <f:Form id="FormToolbar" editable="true"  ariaLabelledBy="Title1">
+				<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="4" labelSpanL="3" labelSpanM="4" labelSpanS="12"
+					adjustLabelSpan="false" emptySpanXL="0"	emptySpanL="4"	emptySpanM="0"
+					emptySpanS="0" columnsXL="2" columnsL="1" columnsM="1"
+					singleContainerFullSize="false" />
+			</f:layout>
+			<f:formContainers>
+				<f:FormContainer ariaLabelledBy="Title2">
+					<f:formElements>
+						<f:FormElement label="{i18n>CUSTOMER_NUM}">
+							<f:fields>
+                                <Input id="idIpCustNum" value="{CustModel>/CustNum}" placeholder="{i18n>CUST_NUM_PLACEH}" 
+								change=".onChangeCustInput($event, 'idIpCustNum')" maxLength="10"/>
+                    		</f:fields>
+						</f:FormElement>
+						<f:FormElement label="{i18n>CUSTOMER_NAME}">
+							<f:fields>
+								<Input id="idIpCustName" value="{CustModel>/CustName}" editable="false" />
+							</f:fields>
+						</f:FormElement>
+
+                        <f:FormElement label="{i18n>SCANNED_BARCODE_COUNT}">
+                        	<f:fields>
+                        		<Input value="{CustModel>/CustBarcodeCount}" editable="false"></Input>
+                        	</f:fields>
+                        </f:FormElement>
+
+						<f:FormElement label="{i18n>BARCODE_NUM}">
+							<f:fields>
+                            <Input id="idIpCustBarcodeNum" value="{CustModel>/CustBarcodeNum}" submit="onCustBarcodeScanBtn" width='{= ${device>/isPhone} ? "100%": "100%"}' maxLength="20" 
+                                 showClearIcon="true"/>
+							<Button icon="sap-icon://camera" press="onCustBarcodeCam">
+								<layoutData>
+									<l:GridData span="XL2 L1 M3 S4" />
+								</layoutData>
+							</Button>
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+			</f:formContainers>
+		    </f:Form>
+            <Panel headerText="{i18n>CUSTOMER_PANEL}" expandable="true" expanded="false">
+            <Table id="idCustTable" items="{CustModel>/CustBarcodeTable}" width="auto">
+                <columns>
+                    <Column>
+                        <Text text="{i18n>BARCODE_NUM_TABL}"/>
+                        </Column>
+                    </columns>
+                    <columns>
+                        <Column>
+                            <Text text="{i18n>DELETE_BARCODE}"/>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Text text="{CustModel>Barcode}" />
+                            </cells>
+                            <cells>
+                                <Button id="idBtnDelTblRowCust" type="Reject" icon="sap-icon://delete" press="onDelTblRow"/>
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </Panel>
+	        </VBox>
+	</content>
+	<footer>
+        <Bar>
+            <contentRight>
+                <Button text="{i18n>RESET}" type="Reject" icon="sap-icon://reset" press="onReset" visible="true"/>
+                <Button text="{i18n>SUBMIT}" type="Emphasized" icon="sap-icon://save" press="onSubmit" 
+					enabled="{= ${CustModel>/SubmitEnabled} }"/>
+            </contentRight>
+        </Bar>
+    </footer>
+ </Page>
+</mvc:View>
+
+
+
+
